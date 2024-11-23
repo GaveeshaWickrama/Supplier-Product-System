@@ -6,6 +6,8 @@
                     <th scope="col">#</th>
                     <th scope="col">Supplier Name</th>
                     <th scope="col">Contact Person</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Product Price</th>
                     <th scope="col">Mobile Number 1</th>
                     <th scope="col">Mobile Number 2</th>
                     <th scope="col">Action</th>
@@ -13,15 +15,17 @@
             </thead>
             <tbody v-for="supplier in suppliers" :key="supplier.id">
                 <tr class="table-secondary">
-                    <th scope="row">{{supplier.id}}</th>
+                    <th scope="row">{{supplier.supplier_id}}</th>
                     <th scope="row">{{supplier.supplier_name}}</th>
                     <th scope="row">{{supplier.contact_person}}</th>
+                    <th scope="row">{{supplier.product_name}}</th>
+                    <th scope="row">{{supplier.product_price}}</th>
                     <th scope="row">{{supplier.mobile_number_1}}</th>
                     <th scope="row">{{supplier.mobile_number_2}}</th>
-                    <th scope="row"><router-link :to="{ name: 'EditSupplier', params: { id: supplier.id }}" class="btn btn-primary btn-sm"    
+                    <th scope="row"><router-link :to="{ name: 'EditSupplier', params: { id: supplier.supplier_id }}" class="btn btn-primary btn-sm"    
                         >Edit</router-link></th>
                     <th scope="row"><button class="btn btn-danger btn-sm"    
-                        @click.prevent = "deleteSupplier(supplier.id)">Delete</button></th>
+                        @click.prevent = "deleteSupplier(supplier.supplier_id)">Delete</button></th>
                     
                 </tr>
             </tbody>

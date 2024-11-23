@@ -28,6 +28,14 @@
                             <label class="form-label t-4">Mobile Number 2</label>
                             <input type="text" class="form-control" v-model="supplier.mobile_number_2" placeholder="Enter Mobile Number 2">
                         </div>
+                        <div class="form-group">
+                            <label>Product Name</label>
+                            <input type="text" class="form-control" v-model="supplier.product_name" placeholder="Enter Product Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Product Price</label>
+                            <input type="number" class="form-control" v-model="supplier.product_price" placeholder="Enter Product Price">
+                        </div>
 
                         <button class="btn btn-primary mt-4">Submit</button>
                     </fieldset>
@@ -50,6 +58,8 @@ export default {
             contact_person: '' ,
             mobile_number_1: '' ,
             mobile_number_2: '' ,
+            product_name: '' ,
+            product_price: '' ,
             errors: []
         }
         
@@ -79,12 +89,25 @@ export default {
                 this.errors.push("Mobile number 2 must include only 10 digits");
             }
 
+
+            if (!this.supplier.product_name) {
+                this.errors.push("Product Name is required");
+            }else if (!/^[a-zA-Z]+$/.test(this.supplier.supplier_name)) {
+                this.errors.push("Product Name can only contain letters");
+            }
+
+            if (!this.supplier.product_price || this.supplier.product_price <= 0) {
+                this.errors.push("Valid Product Price is required");
+            }
+
             if(!this.errors.length){
                 let formData = new FormData();
                 formData.append('supplier_name', this.supplier.supplier_name);
                 formData.append('contact_person', this.supplier.contact_person);
                 formData.append('mobile_number_1', this.supplier.mobile_number_1);
                 formData.append('mobile_number_2', this.supplier.mobile_number_2);
+                formData.append('product_name', this.supplier.product_name);
+                formData.append('product_price', this.supplier.product_price);
                 let url = 'http://127.0.0.1:8000/api/save_supplier';
                 await axios.post(url, formData).then((response) => {
                     console.log(response);
@@ -93,6 +116,8 @@ export default {
                         this.supplier.contact_person = '';
                         this.supplier.mobile_number_1 = '';
                         this.supplier.mobile_number_2 = '';
+                        this.supplier.product_name = '';
+                        this.supplier.product_price = '';
                         alert(response.data.message);
                     }else{
                         console.log('error');
